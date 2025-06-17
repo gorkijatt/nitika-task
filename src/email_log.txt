@@ -1,0 +1,12 @@
+[2025-06-17 09:33:45] Email sent successfully to: gorkijaxy@gmail.com
+Subject: Verify subscription to Task Planner
+Body: Click the link below to verify your subscription to Task Planner:
+Verify Subscription...
+---
+
+[2025-06-17 09:35:21] Email sent successfully to: gorkijaxy@gmail.com
+Subject: Verify subscription to Task Planner
+Body: Click the link below to verify your subscription to Task Planner:
+Verify Subscription...
+---
+

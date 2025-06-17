@@ -1,5 +1,7 @@
 <?php
 
+require_once 'email_smtp.php';
+
 /**
  * Adds a new task to the task list
  * 
@@ -144,10 +146,7 @@ function subscribeEmail(string $email): bool
 	$body = '<p>Click the link below to verify your subscription to Task Planner:</p>
 <p><a id="verification-link" href="' . $verification_link . '">Verify Subscription</a></p>';
 
-	$headers = 'From: no-reply@example.com' . "\r\n" .
-		'Content-Type: text/html; charset=UTF-8' . "\r\n";
-
-	return mail($email, $subject, $body, $headers);
+	return sendEmail($email, $subject, $body, 'no-reply@example.com', 'Task Planner');
 }
 
 /**
@@ -270,8 +269,5 @@ function sendTaskEmail(string $email, array $pending_tasks): bool
 	$body .= '</ul>
 <p><a id="unsubscribe-link" href="' . $unsubscribe_link . '">Unsubscribe from notifications</a></p>';
 
-	$headers = 'From: no-reply@example.com' . "\r\n" .
-		'Content-Type: text/html; charset=UTF-8' . "\r\n";
-
-	return mail($email, $subject, $body, $headers);
+	return sendEmail($email, $subject, $body, 'no-reply@example.com', 'Task Planner');
 }
