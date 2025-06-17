@@ -1,1 +1,12 @@
-// Store the data in JSON format.
+[
+    {
+        "id": "68512f5984a94",
+        "name": "Test Task 1",
+        "completed": false
+    },
+    {
+        "id": "68512f5984c2d",
+        "name": "Test Task 2",
+        "completed": false
+    }
+]
