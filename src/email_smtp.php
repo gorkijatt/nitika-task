@@ -2,7 +2,7 @@
 
 // Gmail SMTP Configuration
 define('GMAIL_EMAIL', 'gorkijaxy@gmail.com');
-define('GMAIL_APP_PASSWORD', 'qyjedwbxjggzkpti'); // ⚠️ CHANGE THIS!
+define('GMAIL_APP_PASSWORD', 'qyjedwbxjggzkpti');
 
 // SMTP Settings
 define('SMTP_HOST', 'smtp.gmail.com');

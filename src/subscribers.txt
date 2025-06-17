@@ -1,4 +1,0 @@
-[
-    "gorkijaxy@gmail.com",
-    "hdqwalls@gmail.com"
-]
