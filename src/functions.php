@@ -140,7 +140,11 @@ function subscribeEmail(string $email): bool
 
 	file_put_contents($file, json_encode($pending, JSON_PRETTY_PRINT));
 
-	$verification_link = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/verify.php?email=' . urlencode($email) . '&code=' . $code;
+	// Get the current directory path and remove /src if present
+	$base_path = dirname($_SERVER['REQUEST_URI']);
+	$base_path = str_replace('/src', '', $base_path);
+	$base_path = rtrim($base_path, '/');
+	$verification_link = 'http://' . $_SERVER['HTTP_HOST'] . $base_path . '/src/verify.php?email=' . urlencode($email) . '&code=' . $code;
 
 	$subject = 'Verify subscription to Task Planner';
 	$body = '<p>Click the link below to verify your subscription to Task Planner:</p>
@@ -256,7 +260,11 @@ function sendTaskEmail(string $email, array $pending_tasks): bool
 {
 	$subject = 'Task Planner - Pending Tasks Reminder';
 
-	$unsubscribe_link = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']) . '/unsubscribe.php?email=' . urlencode($email);
+	// Get the current directory path and remove /src if present
+	$base_path = dirname($_SERVER['REQUEST_URI']);
+	$base_path = str_replace('/src', '', $base_path);
+	$base_path = rtrim($base_path, '/');
+	$unsubscribe_link = 'http://' . $_SERVER['HTTP_HOST'] . $base_path . '/src/unsubscribe.php?email=' . urlencode($email);
 
 	$body = '<h2>Pending Tasks Reminder</h2>
 <p>Here are the current pending tasks:</p>
