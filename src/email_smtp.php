@@ -1,6 +1,30 @@
 <?php
 
-require_once 'email_config.php';
+// Gmail SMTP Configuration
+define('GMAIL_EMAIL', 'gorkijaxy@gmail.com');
+define('GMAIL_APP_PASSWORD', 'qyjedwbxjggzkpti'); // ⚠️ CHANGE THIS!
+
+// SMTP Settings
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
+define('SMTP_ENCRYPTION', 'tls'); // or 'ssl' for port 465
+
+// Default sender information
+define('DEFAULT_FROM_EMAIL', 'no-reply@example.com');
+define('DEFAULT_FROM_NAME', 'Task Planner');
+
+// Email settings
+define('EMAIL_TIMEOUT', 30);
+define('EMAIL_DEBUG', true); // Set to false in production
+
+
+function getGmailCredentials()
+{
+    return [
+        'email' => GMAIL_EMAIL,
+        'password' => GMAIL_APP_PASSWORD
+    ];
+}
 
 /**
  * Gmail SMTP Email Sender
@@ -162,8 +186,6 @@ function sendEmailSMTP($to, $subject, $body, $from_email = null, $from_name = nu
         fputs($socket, "QUIT\r\n");
         fclose($socket);
 
-        // Log success
-        logEmailSuccess($to, $subject, $body);
 
         return true;
     } catch (Exception $e) {
@@ -187,9 +209,7 @@ function sendEmailFallback($to, $subject, $body, $from_email = null, $from_name 
 
     $success = mail($to, $subject, $body, $headers);
 
-    if ($success) {
-        logEmailSuccess($to, $subject, $body);
-    }
+
 
     return $success;
 }
@@ -206,32 +226,4 @@ function sendEmail($to, $subject, $body, $from_email = null, $from_name = null)
 
     // Fallback to PHP mail()
     return sendEmailFallback($to, $subject, $body, $from_email, $from_name);
-}
-
-/**
- * Log successful email sending
- */
-function logEmailSuccess($to, $subject, $body)
-{
-    $email_log = __DIR__ . '/email_log.txt';
-    $timestamp = date('Y-m-d H:i:s');
-
-    $log_entry = "[$timestamp] Email sent successfully to: $to\n";
-    $log_entry .= "Subject: $subject\n";
-    $log_entry .= "Body: " . substr(strip_tags($body), 0, 100) . "...\n";
-    $log_entry .= "---\n\n";
-
-    file_put_contents($email_log, $log_entry, FILE_APPEND | LOCK_EX);
-}
-
-/**
- * Get email sending status from log
- */
-function getEmailLog()
-{
-    $email_log = __DIR__ . '/email_log.txt';
-    if (file_exists($email_log)) {
-        return file_get_contents($email_log);
-    }
-    return "No emails sent yet.";
 }
